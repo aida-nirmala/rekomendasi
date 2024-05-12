@@ -9,7 +9,7 @@
     run di terminal dengan cara : python -m streamlit run main.py 
 
 # APPLICATION
-## Home
-## Pilih Rekomendasi
-## Daftar Rekomendasi
-## Riwayar Rekomendasi
+### Home
+### Pilih Rekomendasi
+### Daftar Rekomendasi
+### Riwayar Rekomendasi

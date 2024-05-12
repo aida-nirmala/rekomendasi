@@ -4,8 +4,10 @@ from app.pilih_rekomendasi import pilih_rekomendasi
 from app.daftar_rekomendasi import daftar_rekomendasi
 from app.riwayat_rekomendasi import riwayat_rekomendasi
 
+
+
 def main():
-    st.title("Aplikasi dengan Sidebar Navigasi")
+# st.title("Aplikasi dengan Sidebar Navigasi")
     st.sidebar.title('Navigation')
     # Pilihan sidebar
     option = st.sidebar.radio("Go to", ['Home', 'Pilih Rekomendasi', 'Daftar Rekomendasi', 'Riwayat Rekomendasi'])
@@ -13,8 +15,10 @@ def main():
     # Konten utama
     if option == "Home":
         home()
+
     elif option == "Pilih Rekomendasi":
         pilih_rekomendasi()
+        
     elif option == 'Daftar Rekomendasi':
         daftar_rekomendasi()
 
@@ -23,4 +27,10 @@ def main():
         
 
 if __name__ == "__main__":
+    st.set_page_config(
+        page_title="Rekomendasi",
+        page_icon=":chart_with_upwards_trend:",
+        layout="wide",
+        initial_sidebar_state="expanded"
+    )
     main()

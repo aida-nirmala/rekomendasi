@@ -2,8 +2,8 @@ import streamlit as st
 import pandas as pd
 
 def daftar_rekomendasi():
-    st.title('Daftar Rekomendasi Page')
-    st.write('Welcome to the Daftar Rekomendasi Page!')
+    st.title('Daftar Rekomendasi Warna')
+    # st.write('Welcome to the Daftar Rekomendasi Page!')
 
     st.write('Data Asli')
     file_path = "data/data_warna.csv"
@@ -27,7 +27,7 @@ def daftar_rekomendasi():
         # Membaca file CSV menjadi DataFrame
         df = pd.read_csv(file_path)
 
-        # Menampilkan header
+        # # Menampilkan header
         st.write("Header:", list(df.columns))
 
         # Menampilkan isi DataFrame
