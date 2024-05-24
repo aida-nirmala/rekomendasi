@@ -3,7 +3,13 @@ from app.home import home
 from app.pilih_rekomendasi import pilih_rekomendasi
 from app.daftar_rekomendasi import daftar_rekomendasi
 from app.riwayat_rekomendasi import riwayat_rekomendasi
+# st.set_page_config(
+#     page_title="Rekomendasi",
+#     page_icon=":chart_with_upwards_trend:",
+#     layout="wide",
+#     initial_sidebar_state="expanded"
 
+# )
 
 
 def main():
@@ -27,10 +33,5 @@ def main():
         
 
 if __name__ == "__main__":
-    st.set_page_config(
-        page_title="Rekomendasi",
-        page_icon=":chart_with_upwards_trend:",
-        layout="wide",
-        initial_sidebar_state="expanded"
-    )
+
     main()

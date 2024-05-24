@@ -1,9 +1,10 @@
 import streamlit as st
 import pandas as pd
+import os
+import mysql.connector
 
 def pilih_rekomendasi():
     st.title('Pilih Rekomendasi Warna')
-    # st.write('Pilih Sesuai Preferensi')
 
     # Fungsi untuk merekomendasikan warna
     def recommend_color(color_database, style_desain_preference, makna_warna_preference, sifat_preference, usia_pengguna_preference, warna_dasar_preference):
@@ -23,9 +24,6 @@ def pilih_rekomendasi():
             
             recommendations.append((item[0], total_score))
         
-        # Menghilangkan rekomendasi warna yang hanya memiliki satu warna dasar
-        recommendations = [rec for rec in recommendations if len(rec[0]) > 1]
-        
         recommendations.sort(key=lambda x: x[1], reverse=True)
         
         return recommendations
@@ -39,8 +37,6 @@ def pilih_rekomendasi():
         else:
             return 1 if item_attribute in user_preference else 0
 
-    # st.header("Rekomendasi Warna")
-    st.subheader("Masukkan Preferensi")
 
     # Membaca data dari file CSV
     color_data = pd.read_csv("data/kombinasi_warna.csv")
@@ -48,14 +44,21 @@ def pilih_rekomendasi():
     # Konversi data menjadi list of tuples
     color_database = color_data.values.tolist()
 
+    # Membuat dua kolom dengan lebar yang sama
+    col1, col2 = st.columns(2)
+    # Menambahkan konten ke dalam kolom pertama
+    col1.subheader("Masukkan Preferensi")
+    
     # Meminta input dari pengguna untuk preferensi mereka
-    style_desain_preference = st.multiselect("Pilih preferensi style desain:", ["American Classic", "Tradisional", "Modern", "Industrial", "Alam"])
-    makna_warna_preference = st.multiselect("Pilih preferensi makna warna:", ["Suci", "Kekuatan", "Keceriaan", "Keberanian", "Keagungan", "Santai", "Ketenangan", "Kenyamanan", "Kerendahan hati", "Kewanitaan", "Kejantanan", "Kehangatan"])
-    sifat_preference = st.multiselect("Pilih preferensi sifat:", ["Panas", "Hangat", "Dingin"])
-    usia_pengguna_preference = st.multiselect("Pilih preferensi usia pengguna:", ["Anak-anak (5-11 tahun)", "Remaja (12-25 tahun)", "Dewasa (26-45 tahun)", "Lansia (<45 tahun)"])
-    warna_dasar_preference = st.multiselect("Pilih preferensi warna dasar:", ["Putih", "Hitam", "Merah", "Kuning", "Biru"])
+    style_desain_preference = col1.multiselect("Pilih preferensi style desain:", ["American Classic", "Tradisional", "Modern", "Industrial", "Alam"])
+    makna_warna_preference = col1.multiselect("Pilih preferensi makna warna:", ["Suci", "Kekuatan", "Keceriaan", "Keberanian", "Keagungan", "Santai", "Ketenangan", "Kenyamanan", "Kerendahan hati", "Kewanitaan", "Kejantanan", "Kehangatan"])
+    sifat_preference = col1.multiselect("Pilih preferensi sifat:", ["Panas", "Hangat", "Dingin"])
+    usia_pengguna_preference = col1.multiselect("Pilih preferensi usia pengguna:", ["Anak-anak (5-11 tahun)", "Remaja (12-25 tahun)", "Dewasa (26-45 tahun)", "Lansia (<45 tahun)"])
+    warna_dasar_preference = col1.multiselect("Pilih preferensi warna dasar:", ["Putih", "Hitam", "Merah", "Kuning", "Biru"])
 
-    if st.button('Cari Rekomendasi'):   
+    if col1.button('Cari Rekomendasi'):   
+        # Menambahkan konten ke dalam kolom kedua
+        col2.subheader("Hasil Rekomendasi")
         # Mendapatkan rekomendasi
         recommendations = recommend_color(color_database, style_desain_preference, makna_warna_preference, sifat_preference, usia_pengguna_preference, warna_dasar_preference)
 
@@ -63,10 +66,34 @@ def pilih_rekomendasi():
         top_recommendations = recommendations[:5]
 
         # Menampilkan rekomendasi
-        st.text("Top 5 Rekomendasi Pemilihan Rekomendasi Warna:")
+        col2.text("Top 5 Rekomendasi Pemilihan Rekomendasi Warna:")
         for i, (nama_warna, score) in enumerate(top_recommendations, start=1):
-            st.text(f"Rekomendasi {i}: {nama_warna} (Skor: {score})")
-            # path_to_color_image = ("data", "warna", f"{nama_warna}.png")
-            # st.image(path_to_color_image, caption=nama_warna, use_column_width=True)
+            col2.text(f"Rekomendasi {i}: {nama_warna} (Skor: {score})")
+
+            # Memisahkan kombinasi warna dengan tanda '&'
+            warna_terpisah = [warna.strip() for warna in nama_warna.split('&')]
+            cols = col2.columns(len(warna_terpisah))
+            for col, warna in zip(cols, warna_terpisah):
+                path_to_color_image = os.path.join("data", "warna", f"{warna}.jpg")
+                if os.path.exists(path_to_color_image):
+                    with col:
+                        col2.image(path_to_color_image, caption=warna, use_column_width=True)
+                else:
+                    with col:
+                        col2.warning(f"Image for {warna} not found!")
+
+    
+
+    
+    # mydb = mysql.connector.connect(
+    #     host="localhost",
+    #     user="root",
+    #     password="",
+    #     database="db_rekomendasi"
+    # )
+    # mycursor=mydb.cursor()
+
+
+    
 
 pilih_rekomendasi()
