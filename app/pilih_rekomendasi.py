@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import os
-import mysql.connector
 
 def pilih_rekomendasi():
     st.title('Pilih Rekomendasi Warna')
@@ -56,7 +55,17 @@ def pilih_rekomendasi():
     usia_pengguna_preference = col1.multiselect("Pilih preferensi usia pengguna:", ["Anak-anak (5-11 tahun)", "Remaja (12-25 tahun)", "Dewasa (26-45 tahun)", "Lansia (<45 tahun)"])
     warna_dasar_preference = col1.multiselect("Pilih preferensi warna dasar:", ["Putih", "Hitam", "Merah", "Kuning", "Biru"])
 
-    if col1.button('Cari Rekomendasi'):   
+    # Initialize session state
+    if 'has_cari_rekomendasi' not in st.session_state:
+        st.session_state.has_cari_rekomendasi = False
+    if 'daftar_rekomendasi' not in st.session_state:
+        st.session_state.daftar_rekomendasi = []
+
+    if col1.button('Cari Rekomendasi'):
+        # Set state has_cari_rekomendasi menjadi True
+        st.session_state.has_cari_rekomendasi = True
+
+    if st.session_state.has_cari_rekomendasi:   
         # Menambahkan konten ke dalam kolom kedua
         col2.subheader("Hasil Rekomendasi")
         # Mendapatkan rekomendasi
@@ -67,33 +76,32 @@ def pilih_rekomendasi():
 
         # Menampilkan rekomendasi
         col2.text("Top 5 Rekomendasi Pemilihan Rekomendasi Warna:")
+
+        # Tampilkan rekomendasi
         for i, (nama_warna, score) in enumerate(top_recommendations, start=1):
             col2.text(f"Rekomendasi {i}: {nama_warna} (Skor: {score})")
 
             # Memisahkan kombinasi warna dengan tanda '&'
             warna_terpisah = [warna.strip() for warna in nama_warna.split('&')]
-            cols = col2.columns(len(warna_terpisah))
+            
+            # Membuat dua kolom untuk menampilkan gambar bersebelahan
+            cols = col2.columns(2)
+            
+            # Menambahkan gambar ke dalam kolom
             for col, warna in zip(cols, warna_terpisah):
                 path_to_color_image = os.path.join("data", "warna", f"{warna}.jpg")
                 if os.path.exists(path_to_color_image):
-                    with col:
-                        col2.image(path_to_color_image, caption=warna, use_column_width=True)
+                    col.image(path_to_color_image, caption=warna, use_column_width=True)
                 else:
-                    with col:
-                        col2.warning(f"Image for {warna} not found!")
+                    col.warning(f"Image for {warna} not found!")
 
-    
+        # Tampilkan opsi untuk memilih satu pilihan
+        pilihan = ['Pilihan 1', 'Pilihan 2', 'Pilihan 3', 'Pilihan 4', 'Pilihan 5']
+        index_rekomendasi = col1.radio("Pilih satu opsi:", pilihan, key="options")  # Beri key untuk widget ini
+        if col1.button('Simpan Rekomendasi'):
+            selected_rekomendasi = st.session_state.daftar_rekomendasi[int(index_rekomendasi[-1])-1]
+            col1.text(selected_rekomendasi)  # Menampilkan rekomendasi yang dipilih
 
-    
-    # mydb = mysql.connector.connect(
-    #     host="localhost",
-    #     user="root",
-    #     password="",
-    #     database="db_rekomendasi"
-    # )
-    # mycursor=mydb.cursor()
-
-
-    
-
-pilih_rekomendasi()
+        # Tampilkan daftar rekomendasi setelah rekomendasi selesai ditampilkan
+        col2.text("Daftar Rekomendasi:")
+        col2.text(st.session_state.daftar_rekomendasi)

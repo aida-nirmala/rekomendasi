@@ -1,7 +1,6 @@
 import streamlit as st
 
 def home():
-    
     st.header('Hai, Selamat Datang di')
     # Membuat dua kolom dengan lebar yang sama
     col1, col2 = st.columns([3,2])

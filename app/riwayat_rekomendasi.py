@@ -104,6 +104,3 @@ def riwayat_rekomendasi():
     df = pd.DataFrame(result, columns=columns)
     st.write(df)
     st.markdown(df.to_html(index=False), unsafe_allow_html=True)
-
-# Panggil fungsi utama
-riwayat_rekomendasi()
