@@ -1,14 +1,14 @@
-tugas selanjutnya:
+1. Cari cara agar session state di halaman pilih_rekomendasi otomatis riset ketika berpindah halaman
+2. pada halaman daftar_rekomendasi Data Kombinasi mengambil data dari table SQL data_kombinasi
+3. Perbaikan nama table database SQl, termasuk yang ada di halaman daftar_rekomendasi, edit_rekomendasi, riwayat_rekomendasi
+4. Mencari nama aplikasi
 
-2. cari pemilihan warna rekomendasi yg mengambil data dari file csv di pilih_rekomendasi (gunakan chat gpt)
-3. cari cara untuk menampilkan warna di streamlit, jika memmang tdk bisa menampilkan, tampilkan gambar warnanya
-   (gunakan chatgpt)
-4. perbaiki halaman home agar estetik
-5. belajar dokumentasi streamlit
-6. halaman pilih_rekomendasi hanya menampilkan 5 tertinggi serta menampilkan warnanya [done]
-7. perbaiki halaman pilih_rekomendasi agar estetik
-8. perbaiki halaman daftar_rekomendasi agar estetik
-9. pelajari login streamlit
 
-10. cara masukin data ke dalam sql, kolomnya menggunakan array
-11. Pernaiki halaman pilih_rekomendasi Dijadikan 2 kolom untuk menampilkan form untuk memilih rekomendasi terpilih
+
+Next 
+1. Fungsi pilih_rekomendasi mengambil data dari SQL bukan CSV
+2. Halaman pilih_rekomendasi menyimpan riwayat
+3. Halaman riwayat_rekomendasi menampilkan riwayat per user
+4. Buat Halaman login
+5. Insert, Update, Delete Data Warna oleh Admin
+6. Insert, Update, Delete Data User oleh Admin
