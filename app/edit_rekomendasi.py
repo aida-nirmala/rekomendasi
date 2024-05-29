@@ -50,7 +50,7 @@ def edit_rekomendasi():
 
     # Unggah file CSV untuk data asli
     st.header("Import Data Asli")
-    uploaded_file_asli = st.file_uploader("Choose a CSV file for Data Asli", type="csv", key="data_asli")
+    uploaded_file_asli = st.file_uploader("Choose a CSV file for Data Asli", type="csv", key="data_warna")
     
     if uploaded_file_asli is not None:
         # Baca file CSV
@@ -62,7 +62,7 @@ def edit_rekomendasi():
         conn = create_connection()
         if conn:
             # Buat tabel jika belum ada
-            table_name_asli = "data_asli"
+            table_name_asli = "data_warna"
             columns_asli = "id_rekomendasi INT AUTO_INCREMENT PRIMARY KEY, kombinasi_warna TEXT, style_desain TEXT, makna_warna TEXT, sifat TEXT, usia_pengguna TEXT, warna_dasar TEXT"
             create_table_if_not_exists(conn, table_name_asli, columns_asli)
             

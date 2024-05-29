@@ -7,7 +7,7 @@ def home():
     # Menambahkan konten ke dalam kolom pertama
     with col1:
         
-        st.title('Rekomendasi')
+        st.title('NuansaDesain')
         st.write('<p style="text-align: justify;">Merupakan sistem rekomendasi pemilihan warna kombinasi pada desain interior yang telah selesai dirancang untuk memperluas aksebilitas informasi desain, mempermudah proses pengambilan keputusan pada pemilihan warna kombinasi desain interior. Aplikasi ini merupakan hasil dari penelitian berjudul "Implementasi Metode Knowledge Based Recommendation Untuk Sistem Rekomendasi Pemilihan Warna Pada Desain Interior Berbasis Website"</p>', unsafe_allow_html=True)
 
     # Menambahkan konten ke dalam kolom kedua

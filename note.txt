@@ -1,5 +1,5 @@
 1. Cari cara agar session state di halaman pilih_rekomendasi otomatis riset ketika berpindah halaman
-2. pada halaman daftar_rekomendasi Data Kombinasi mengambil data dari table SQL data_kombinasi
+2. pada halaman daftar_rekomendasi Data Kombinasi mengambil data dari table SQL data_kombinasi (done)
 3. Perbaikan nama table database SQl, termasuk yang ada di halaman daftar_rekomendasi, edit_rekomendasi, riwayat_rekomendasi
 4. Mencari nama aplikasi
 
